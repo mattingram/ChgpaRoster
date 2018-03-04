@@ -1,3 +1,3 @@
 # ChgpaRoster
 
-## Azure Cloud Table connected ASP.NET Core WebApi w/ Razor pages
+## Azure Cloud Table connected ASP.NET Core MVC w/ Razor pages and REST API
