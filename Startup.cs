@@ -22,7 +22,7 @@ namespace ChgpaRoster
             services.AddMvc().AddRazorPagesOptions(options =>
             {
                 options.RootDirectory = "/Pages";
-                options.Conventions.AuthorizeFolder("/Pages/Admin");
+                //options.Conventions.AuthorizeFolder("/Pages/Admin");
             });
             services.AddSwaggerGen(c =>
             {

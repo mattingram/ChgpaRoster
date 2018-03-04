@@ -3,9 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Roster.Models;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
-//using Microsoft.Azure;
-//using Microsoft.Azure.CosmosDB.Table;
-//using Microsoft.Azure.Storage;
 
 namespace Roster.Utilities
 {

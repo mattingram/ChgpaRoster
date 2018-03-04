@@ -9,5 +9,15 @@
 //         {
 //             return new ContentResult(){Content = "home"};
 //         }
+
+//         public IActionResult Ushpa()
+//         {
+//             return new ContentResult(){Content = "Ushpa"};
+//         }
+
+//         public IActionResult Email()
+//         {
+//             return new ContentResult(){Content = "Email"};
+//         }
 //     }
 // }

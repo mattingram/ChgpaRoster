@@ -1,0 +1,55 @@
+﻿@page
+@model Admin.IndexModel
+
+<style>
+.layout table .input-container {
+  margin: 0 auto;
+  /* 1024px if root is set to 16px */
+  max-width: 64rem;
+  width: 100%;
+}
+.input-container {
+    display: flex;
+    justify-content:space-between;
+    width: 20%;
+}
+</style>
+<div class="layout">
+    <h2>Member Search</h2>
+    <div class="input-container">
+        <span>Last Name:</span>@Html.TextBoxFor(m => m.LastName,new {@placeholder="Last name",@required="required"})
+    </div>
+    <div class="input-container">
+        <span>Email:</span>@Html.TextBoxFor(m => m.EmailAddress,new {@placeholder="Email",@required="required"})
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Members[0].LastName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Members[0].FirstName)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model.Members) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.RowKey">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.RowKey">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.RowKey">Delete</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

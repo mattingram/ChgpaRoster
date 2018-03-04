@@ -1,19 +1,45 @@
-using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Roster.Models;
-using Roster.Utilities;
 
 namespace Roster.Pages
 {
     public class IndexModel : PageModel
     {
-        public List<Member> Members;
+        [BindProperty]
+        public string Ushpa {get; set;}
+
+        [BindProperty]
+        public string Email {get; set;}
+
+        [TempData]
+        public string UshpaResult {get; set;}
+
+        [TempData]
+        public string EmailResult {get; set;}
+
+        [TempData]
+        public string Message {get; set;}
 
         public void OnGet()
         {
-            Member member = CloudTableHelper.GetMember("Ingram", "mingram@vt.edu");
-            Members = new List<Member>();
-            Members.Add(member);
+            TempData.Clear();
+        }
+
+        public void OnPost()
+        {
+            if (Ushpa == null && Email == null)
+            {
+                Message = "Please enter a Ushpa # or Email address.";
+                return;
+            }
+            if (Ushpa != null)
+            {
+                UshpaResult = "Found Ushpa!";
+            }
+            if (Email != null)
+            {
+                EmailResult = "Found email!";
+            }
         }
     }
 }

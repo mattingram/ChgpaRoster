@@ -1,36 +1,31 @@
 ﻿@page
-@model Roster.Pages.IndexModel
-@{
-}
-<h2>Hello, World!</h2>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Members[0].LastName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Members[0].FirstName)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-    @foreach (var item in Model.Members) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.RowKey">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.RowKey">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.RowKey">Delete</a>
-            </td>
-        </tr>
+@model IndexModel
+<style>
+    .green {
+        color: green;
     }
-    </tbody>
-</table>
+    .red {
+        color: red;
+    }
+</style>
+    <div>
+        <h2>Chgpa Member Search</h2>
+        <form method="post">
+            <table>
+                <tr>
+                    <td>Ushpa #:</td><td><input asp-for="Ushpa" type="number" /></td>
+                    <td><span class="green">@Model.UshpaResult</span></td>
+                </tr>
+                <tr>
+                   <td>or</td>
+                </tr>
+                <tr>
+                    <td>Email:</td><td><input asp-for="Email" type="email" /></td>
+                    <td><span class="green">@Model.EmailResult</span></td>
+                </tr>
+            </table>
+            <input type="submit" value="Search" />
+            <br/>
+            <span class="red">@Model.Message</span>
+        </form>
+    </div>
