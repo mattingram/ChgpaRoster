@@ -1,13 +1,15 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Roster.Models;
 using Roster.Utilities;
 
 namespace Roster.Pages.Admin
 {
-    [Authorize]
-    public class AdminModel : PageModel
+    [Authorize(CookieAuthenticationDefaults.AuthenticationScheme)]
+    public class IndexModel : PageModel
     {
         public List<Member> Members = new List<Member>();
         public string LastName;

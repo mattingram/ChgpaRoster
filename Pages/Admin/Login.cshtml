@@ -1,0 +1,18 @@
+@page
+@model LoginModel
+    <div>
+        <h2>Login to Chgpa Member Admin</h2>
+        <form method="post">
+            <table>
+                <tr>
+                    <td>Username:</td><td><input asp-for="UserName" /></td>
+                </tr>
+                <tr>
+                    <td>Password:</td><td><input asp-for="Password" type="password" /></td>
+                </tr>
+            </table>
+            <input type="submit" value="Login" />
+            <br/>
+            <span class="red">@Model.Message</span>
+        </form>
+    </div>
