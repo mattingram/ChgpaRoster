@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Roster.Utilities;
 
 namespace Roster.Pages
 {
@@ -30,11 +31,13 @@ namespace Roster.Pages
             }
             if (Ushpa != null)
             {
-                UshpaResult = "Found Ushpa!";
+                var member = MemberHelper.GetMemberByUshpa(Ushpa);
+                UshpaResult = member?.ExpirationDate.ToString();
             }
             if (Email != null)
             {
-                EmailResult = "Found email!";
+                var member = MemberHelper.GetMemberByEmail(Email);
+                EmailResult = member?.ExpirationDate.ToString();
             }
         }
     }

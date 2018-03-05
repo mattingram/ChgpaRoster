@@ -7,7 +7,7 @@ using Roster.Utilities;
 namespace Roster.Pages.Admin
 {
     [Authorize]
-    public class IndexModel : PageModel
+    public class AdminModel : PageModel
     {
         public List<Member> Members = new List<Member>();
         public string LastName;

@@ -1,11 +1,26 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using Roster.Models;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
+using Roster.Models;
 
 namespace Roster.Utilities
 {
+    public static class MemberHelper
+    {
+        public static Member GetMemberByUshpa(string ushpa)
+        {
+            return CloudTableHelper.GetMembersByFilter($"USHPA eq '{ushpa}'").FirstOrDefault();
+        }
+
+        public static Member GetMemberByEmail(string email)
+        {
+            return CloudTableHelper.GetMembersByFilter($"Email eq '{email}' or SecondaryEmail eq '{email}'").FirstOrDefault();
+        }
+    }
+
     public static class CloudTableHelper
     {
         private static string _connectionString;
@@ -37,15 +52,26 @@ namespace Roster.Utilities
 
         public static IActionResult GetWithFilter(string filter)
         {
+			var results = GetMembersByFilter(filter);
+			if (results == null)
+			{
+				return new EmptyResult();
+			}
+			return new JsonResult(results);
+        }
+
+        public static IEnumerable<Member> GetMembersByFilter(string filter)
+        {
 			var query = new TableQuery<Member>().Where(filter);
 
             var token = new TableContinuationToken();
 			var results = table.ExecuteQuerySegmentedAsync(query, token);
 			if (results == null)
 			{
-				return new EmptyResult();
+				return null;
 			}
-			return new JsonResult(results.Result);
+			//return new JsonResult(results.Result.FirstOrDefault().ExpirationDate);
+            return results.Result.ToList();
         }
     }
 }
