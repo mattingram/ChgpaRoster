@@ -33,15 +33,20 @@ namespace ChgpaRoster
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("connectionString")))
+            string connectionString = Configuration.GetConnectionString("connectionString");
+            if (string.IsNullOrEmpty(connectionString))
             {
-                string connectionString = Configuration["connectionString"];
-                if (string.IsNullOrEmpty(connectionString))
-                {
-                    throw new Exception("Missing connection string in environment variable or local config file.");
-                }
-                Environment.SetEnvironmentVariable("connectionString", connectionString);
+                connectionString = Environment.GetEnvironmentVariable("connectionString");
             }
+            if (string.IsNullOrEmpty(connectionString))
+            {
+                connectionString = Configuration["connectionString"];
+            }
+            if (string.IsNullOrEmpty(connectionString))
+            {
+                throw new Exception("Missing connection string in environment variable or local config file.");
+            }
+            Environment.SetEnvironmentVariable("connectionString", connectionString);
 
             if (env.IsDevelopment())
             {

@@ -11,22 +11,18 @@ namespace Roster.Pages
         [BindProperty]
         public string Email {get; set;}
 
-        [TempData]
         public string UshpaResult {get; set;}
 
-        [TempData]
         public string EmailResult {get; set;}
 
-        [TempData]
         public string Message {get; set;}
-
-        public void OnGet()
-        {
-            TempData.Clear();
-        }
 
         public void OnPost()
         {
+            Message = null;
+            UshpaResult = null;
+            EmailResult = null;
+
             if (Ushpa == null && Email == null)
             {
                 Message = "Please enter a Ushpa # or Email address.";
