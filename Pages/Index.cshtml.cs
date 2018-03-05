@@ -32,12 +32,12 @@ namespace Roster.Pages
             if (Ushpa != null)
             {
                 var member = MemberHelper.GetMemberByUshpa(Ushpa);
-                UshpaResult = member?.ExpirationDate.ToString();
+                UshpaResult = MemberHelper.FormatExpirationDate(member);
             }
             if (Email != null)
             {
                 var member = MemberHelper.GetMemberByEmail(Email);
-                EmailResult = member?.ExpirationDate.ToString();
+                EmailResult = MemberHelper.FormatExpirationDate(member);
             }
         }
     }

@@ -10,14 +10,33 @@ namespace Roster.Utilities
 {
     public static class MemberHelper
     {
+        public static string FormatExpirationDate(Member member)
+        {
+            if (member == null)
+            {
+                return "Not found.";
+            }
+            if (member.ExpirationDate == DateTime.MinValue)
+            {
+                return "Active Member (No Expiration)";
+            }
+            if (member.ExpirationDate < DateTime.Now)
+            {
+                return "Expired: " + member.ExpirationDate.ToShortDateString();
+            }
+            return $"Active Member ({member?.ExpirationDate.ToShortDateString()})";
+        }
+
         public static Member GetMemberByUshpa(string ushpa)
         {
-            return CloudTableHelper.GetMembersByFilter($"USHPA eq '{ushpa}'").FirstOrDefault();
+            var members = CloudTableHelper.GetMembersByFilter($"USHPA eq '{ushpa}'");
+            return members.Any() ? members.First() : null;
         }
 
         public static Member GetMemberByEmail(string email)
         {
-            return CloudTableHelper.GetMembersByFilter($"Email eq '{email}' or SecondaryEmail eq '{email}'").FirstOrDefault();
+            var members = CloudTableHelper.GetMembersByFilter($"Email eq '{email}' or SecondaryEmail eq '{email}'");
+            return members.Any() ? members.First() : null;
         }
     }
 
@@ -70,7 +89,6 @@ namespace Roster.Utilities
 			{
 				return null;
 			}
-			//return new JsonResult(results.Result.FirstOrDefault().ExpirationDate);
             return results.Result.ToList();
         }
     }
