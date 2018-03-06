@@ -5,6 +5,10 @@
 </head>
 <body>    
    <a asp-page="/Index">Home</a> - <a asp-page="/Admin/Index">Admin</a>
+   @if (User.Identity.IsAuthenticated)
+   {
+   <span> - </span><a asp-page="/Admin/Logout">Logout</a>
+   }
    <br/>
     @RenderBody()
 </body>

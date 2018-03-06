@@ -16,12 +16,16 @@
 </style>
 <div class="layout">
     <h2>Member Search</h2>
-    <div class="input-container">
-        <span>Last Name:</span>@Html.TextBoxFor(m => m.LastName,new {@placeholder="Last name",@required="required"})
-    </div>
-    <div class="input-container">
-        <span>Email:</span>@Html.TextBoxFor(m => m.EmailAddress,new {@placeholder="Email",@required="required"})
-    </div>
+    <form method="post">
+        <div class="input-container">
+            <span>Last Name:</span><input asp-for="LastName" />
+        </div>
+        <div class="input-container">
+            <span>Email:</span><input asp-for="Email" />
+        </div>
+        <input type="submit" value="Search" />
+    </form>
+    @if (Model.Members.Count > 0) {
     <table class="table">
         <thead>
             <tr>
@@ -52,4 +56,5 @@
         }
         </tbody>
     </table>
+    }
 </div>
