@@ -1,18 +1,22 @@
 @page
 @model LoginModel
-    <div>
-        <h2>Login to Chgpa Member Admin</h2>
+@{
+    ViewData["Title"] = "CHGPA Admin Login";
+}
+    <div class="layout">
+        <h2>@ViewData["Title"]</h2>
         <form method="post">
-            <table>
-                <tr>
-                    <td>Email:</td><td><input asp-for="Email" /></td>
-                </tr>
-                <tr>
-                    <td>Password:</td><td><input asp-for="Password" type="password" /></td>
-                </tr>
-            </table>
-            <input type="submit" value="Login" />
-            <br/>
-            <span class="red">@Model.Message</span>
+            <div class="input-form">
+                <div class="input-container">
+                    <span>Email:</span><input asp-for="Email" />
+                </div>
+                <div class="input-container">
+                    <span>Password:</span><input asp-for="Password" />
+                </div>
+                <div class="submit-button">
+                    <input type="submit" value="Login" />
+                </div>
+                <span class="validation-error">@Model.Message</span>
+            </div>
         </form>
     </div>

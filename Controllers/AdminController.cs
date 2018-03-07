@@ -2,16 +2,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Roster.Pages.Admin
+namespace Roster.Controllers
 {
-    public class LogoutModel : PageModel
+    [Route("[controller]/[action]")]
+    public class AdminController : Controller
     {
-        public async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToPage("/Admin/Login");
+            return RedirectToPage("/Admin/SignedOut");
         }
     }
 }

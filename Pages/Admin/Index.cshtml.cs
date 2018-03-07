@@ -19,6 +19,9 @@ namespace Roster.Pages.Admin
         
         [BindProperty]
         public string Email {get; set;}
+        
+        [BindProperty]
+        public string Message {get; set;}
 
         public void OnPost()
         {

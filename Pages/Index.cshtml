@@ -1,31 +1,27 @@
 ﻿@page
 @model IndexModel
-<style>
-    .result {
-        font: bold;
-    }
-    .red {
-        color: red;
-    }
-</style>
-    <div>
-        <h2>Chgpa Member Search</h2>
+@{
+    ViewData["Title"] = "CHGPA Member Validation";
+}
+    <div class="layout">
+        <h2>@ViewData["Title"]</h2>
+        <p>Enter USHPA # or Email address to validate membership.</p>
         <form method="post">
-            <table>
-                <tr>
-                    <td>Ushpa #:</td><td><input asp-for="Ushpa" type="number" /></td>
-                    <td><span class="result">@Model.UshpaResult</span></td>
-                </tr>
-                <tr>
-                   <td>or</td>
-                </tr>
-                <tr>
-                    <td>Email:</td><td><input asp-for="Email" type="email" /></td>
-                    <td><span class="result">@Model.EmailResult</span></td>
-                </tr>
-            </table>
-            <input type="submit" value="Search" />
-            <br/>
-            <span class="red">@Model.Message</span>
+            <div class="member-search">
+                <table>
+                    <tr>
+                        <td>USHPA #:</td><td><input asp-for="Ushpa" type="number" /></td>
+                        <td><span class="result">@Model.UshpaResult</span></td>
+                    </tr>
+                    <tr>
+                        <td>Email:</td><td><input asp-for="Email" type="email" /></td>
+                        <td><span class="result">@Model.EmailResult</span></td>
+                    </tr>
+                </table>
+                <div class="submit-button">
+                    <input type="submit" value="Search" />
+                </div>
+                <span class="validation-error">@Model.Message</span>
+            </div>
         </form>
     </div>

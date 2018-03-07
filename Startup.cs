@@ -65,10 +65,13 @@ namespace ChgpaRoster
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseBrowserLink();
             }
 
             app.UseAuthentication();
+            app.UseStaticFiles();
             app.UseMvc();
+
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {

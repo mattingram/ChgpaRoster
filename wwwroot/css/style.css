@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+
+body {
+  font-family: 'Source Sans Pro', Helvetica, sans-serif;
+  /* Not neccessary if root is set to 16px */
+  font-size: 16px;
+}
+
+.layout table .input-container {
+  margin: 0 auto;
+  /* 1024px if root is set to 16px */
+  max-width: 64rem;
+  width: 100%;
+}
+.input-container {
+  display: flex;
+  justify-content:space-between;
+  width: 20%;
+}
+.submit-button {
+  margin: .5rem 0 .5rem 0;
+}
+.result {
+  font-weight: bolder;
+}
+.validation-error {
+  color: red;
+  padding-left: .2rem;
+}
+.input-form {
+  font-size: .875rem;
+}
+.member-search {
+  /* 14px if root font size is 16px */
+  font-size: .875rem;
+}
+.member-search tbody {
+  line-height: 1.5;
+}
+
+.roster table, .roster-header {
+  margin: 0 auto;
+  /* 1024px if root is set to 16px */
+  max-width: 64rem;
+  width: 100%;
+}
+.roster table {
+  /* 14px if root font size is 16px */
+  font-size: .875rem;
+}
+.roster tbody {
+  line-height: 1.5;
+}
+.roster th, .roster td {
+  border-bottom: 1px solid rgba(0, 0, 0, .2);
+  padding: 1rem 1rem 1rem 0;
+}
+.roster th {
+  text-align: left;
+}
+.table-wrapper {
+  overflow: auto;
+}
+.roster-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 1.25rem;
+}
+.roster-header a {
+  text-transform: uppercase;
+  padding: 1rem;
+  letter-spacing: .1rem;
+  text-decoration: none;
+  color: #00449E;
+  transition: opacity .2s ease-in-out;
+}
+.roster-header a:hover {
+  opacity: .5;
+}
