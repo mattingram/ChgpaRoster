@@ -1,4 +1,7 @@
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
@@ -7,19 +10,32 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Configuration;
 
 namespace Roster.Pages.Admin
 {
     public class LoginModel : PageModel
     {
         [BindProperty]
+        [Required]
+        [EmailAddress]
         public string Email { get; set; }
 
         [BindProperty]
+        [Required]
         public string Password { get; set; }
 
         [BindProperty]
         public string Message { get; set; }
+
+        private readonly List<string> AdminUsers;
+        private readonly List<string> AdminKeys;
+
+        public LoginModel(IConfiguration config)
+        {
+            AdminUsers = config["AdminUsers"].Split(";").ToList();
+            AdminKeys = config["AdminKeys"].Split(";").ToList();
+        }
 
         public ActionResult OnGet()
         {
@@ -28,11 +44,16 @@ namespace Roster.Pages.Admin
 
         public async Task<IActionResult> OnPostAsync()
         {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
             var user = AuthenticateUser(Email, Password);
 
             if (user == null)
             {
-                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                ModelState.AddModelError(string.Empty, "Invalid login.");
                 return Page();
             }
 
@@ -79,7 +100,7 @@ namespace Roster.Pages.Admin
 
         private IdentityUser AuthenticateUser(string email, string password)
         {
-            if (email == "mingram@vt.edu")
+            if (AdminUsers.Contains(email) && AdminKeys.Contains(password))
             {
                 return new IdentityUser()
                 {

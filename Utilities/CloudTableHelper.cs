@@ -42,19 +42,15 @@ namespace Roster.Utilities
 
     public static class CloudTableHelper
     {
-        private static string _connectionString;
         private static CloudTable _table;
         private static CloudTable table => _table ?? Init();
 
         private static CloudTable Init()
         {
-            _connectionString = Environment.GetEnvironmentVariable("connectionString");
-			//string connectionString = CloudConfigurationManager.GetSetting("rosterStorage");
-            
-			CloudStorageAccount storageAccount = CloudStorageAccount.Parse(_connectionString);
-			CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
-			_table = tableClient.GetTableReference("Members");
-			_table.CreateIfNotExistsAsync();
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(Environment.GetEnvironmentVariable("DefaultConnection"));
+            CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
+            _table = tableClient.GetTableReference("Members");
+            _table.CreateIfNotExistsAsync();
             return _table;
         }
                 

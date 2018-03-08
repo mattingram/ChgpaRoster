@@ -8,15 +8,15 @@
         <form method="post">
             <div class="input-form">
                 <div class="input-container">
-                    <span>Email:</span><input asp-for="Email" />
+                    <span>Email:</span><input asp-for="Email" type="email" required />
                 </div>
                 <div class="input-container">
-                    <span>Password:</span><input asp-for="Password" />
+                    <span>Password:</span><input asp-for="Password" type="password" required/>
                 </div>
                 <div class="submit-button">
                     <input type="submit" value="Login" />
                 </div>
-                <span class="validation-error">@Model.Message</span>
+                @Html.ValidationSummary()
             </div>
         </form>
     </div>

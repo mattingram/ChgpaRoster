@@ -26,12 +26,14 @@ namespace ChgpaRoster
                 //options.Conventions.AuthorizeFolder("/Pages/Admin");
             });
             
+            services.AddSingleton<IConfiguration>(Configuration);
+
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
                     // Cookie settings
                     options.Cookie.HttpOnly = true;
-                    options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(120);
                     options.LoginPath = "/Admin/Login"; // If the LoginPath is not set here, ASP.NET Core will default to /Account/Login
                     options.LogoutPath = "/Admin/Logout"; // If the LogoutPath is not set here, ASP.NET Core will default to /Account/Logout
                     options.AccessDeniedPath = "/Admin/AccessDenied"; // If the AccessDeniedPath is not set here, ASP.NET Core will default to /Account/AccessDenied
@@ -47,20 +49,7 @@ namespace ChgpaRoster
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            string connectionString = Configuration.GetConnectionString("connectionString");
-            if (string.IsNullOrEmpty(connectionString))
-            {
-                connectionString = Environment.GetEnvironmentVariable("connectionString");
-            }
-            if (string.IsNullOrEmpty(connectionString))
-            {
-                connectionString = Configuration["connectionString"];
-            }
-            if (string.IsNullOrEmpty(connectionString))
-            {
-                throw new Exception("Missing connection string in environment variable or local config file.");
-            }
-            Environment.SetEnvironmentVariable("connectionString", connectionString);
+            Environment.SetEnvironmentVariable("DefaultConnection", GetConnectionString("DefaultConnection"));
 
             if (env.IsDevelopment())
             {
@@ -77,6 +66,26 @@ namespace ChgpaRoster
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "ChgpaRoster v1");
             });
+        }
+
+        public string GetConnectionString(string name)
+        {
+            string value = Configuration.GetConnectionString(name);
+            if (string.IsNullOrEmpty(value))
+            {
+                value = GetConfig(name);
+            }
+            return value;
+        }
+
+        public string GetConfig(string name)
+        {
+            string value = Configuration[name];
+            if (string.IsNullOrEmpty(value))
+            {
+                throw new Exception($"{name} not found in Configuration.");
+            }
+            return value;
         }
     }
 }
