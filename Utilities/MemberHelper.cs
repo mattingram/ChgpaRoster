@@ -77,9 +77,9 @@ namespace Roster.Utilities
             }
             if (member.ExpirationDate < DateTime.Now)
             {
-                return "Expired: " + member.ExpirationDate.ToShortDateString();
+                return "Expired: " + member.ExpirationDate?.ToShortDateString();
             }
-            return $"Active Member ({member?.ExpirationDate.ToShortDateString()})";
+            return $"Active Member ({member?.ExpirationDate?.ToShortDateString()})";
         }
     }
 }
