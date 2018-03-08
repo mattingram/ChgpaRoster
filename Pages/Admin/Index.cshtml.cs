@@ -29,7 +29,7 @@ namespace Roster.Pages.Admin
             {
                 return;
             }
-            Member member = CloudTableHelper.GetMember(LastName, Email);
+            Member member = MemberHelper.GetMember(LastName, Email);
             Members = new List<Member>();
             Members.Add(member);
         }

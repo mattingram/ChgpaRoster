@@ -13,7 +13,7 @@ namespace Roster.Controllers
         public IActionResult GetAll()
         {
 			string filter = string.Empty;
-            return CloudTableHelper.GetWithFilter(filter);
+            return MemberHelper.GetJsonWithFilter(filter);
 		}
 
         //// GET api/roster/current
@@ -21,7 +21,7 @@ namespace Roster.Controllers
         public IActionResult GetCurrentRoster()
         {
 			string filter = "DateLastPaid ge datetime'2017-01-01T00:00:00.000Z' or WebsiteJoinDate ge datetime'2017-01-01T00:00:00.000Z'";
-            return CloudTableHelper.GetWithFilter(filter);
+            return MemberHelper.GetJsonWithFilter(filter);
 		}
 
         //// GET api/roster/lastname/smith
@@ -29,7 +29,7 @@ namespace Roster.Controllers
         public IActionResult GetByLastName(string lastName)
         {
             string filter = $"LastName eq '{lastName}'";
-            return CloudTableHelper.GetWithFilter(filter);
+            return MemberHelper.GetJsonWithFilter(filter);
         }
 
         //// GET api/roster/email/test@test.com
@@ -37,7 +37,7 @@ namespace Roster.Controllers
         public IActionResult GetByEmail(string emailAdress)
         {
 	        string filter = $"Email eq '{emailAdress}' or SecondaryEmail eq '{emailAdress}'";
-            return CloudTableHelper.GetWithFilter(filter);
+            return MemberHelper.GetJsonWithFilter(filter);
         }
 
         //// GET api/roster/ushpa/5
@@ -45,7 +45,7 @@ namespace Roster.Controllers
         public IActionResult GetByUshpa(int ushpa)
         {
 	        string filter = $"USHPA eq '{ushpa}'";
-            return CloudTableHelper.GetWithFilter(filter);
+            return MemberHelper.GetJsonWithFilter(filter);
         }
 
         //// POST api/roster
