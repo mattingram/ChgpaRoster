@@ -11,16 +11,15 @@
                 <table>
                     <tr>
                         <td>USHPA #:</td><td><input asp-for="Ushpa" type="number" /></td>
-                        <td><span class="result">@Model.UshpaResult</span></td>
                     </tr>
                     <tr>
                         <td>Email:</td><td><input asp-for="Email" type="email" /></td>
-                        <td><span class="result">@Model.EmailResult</span></td>
                     </tr>
                 </table>
                 <div class="submit-button">
                     <input type="submit" value="Search" />
                 </div>
+                <span class="result @(@Model.IsActive ? "member-active" : "member-inactive")">@Model.Result</span>
                 <span class="validation-error">@Model.Message</span>
             </div>
         </form>

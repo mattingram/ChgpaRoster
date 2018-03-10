@@ -1,3 +1,4 @@
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Roster.Utilities;
@@ -12,32 +13,39 @@ namespace Roster.Pages
         [BindProperty]
         public string Email {get; set;}
 
-        public string UshpaResult {get; set;}
-
-        public string EmailResult {get; set;}
-
-        public string Message {get; set;}
+        public string Result {get; private set;}
+        public bool IsActive { get; private set; }
+        public string Message {get; private set;}
 
         public void OnPost()
         {
             Message = null;
-            UshpaResult = null;
-            EmailResult = null;
+            Result = null;
 
             if (Ushpa == null && Email == null)
             {
                 Message = "Please enter a Ushpa # or Email address.";
                 return;
             }
-            if (Ushpa != null)
+            if (Ushpa != null || Email != null)
             {
-                var member = MemberHelper.GetMemberByUshpa(Ushpa);
-                UshpaResult = MemberHelper.FormatExpirationDate(member);
-            }
-            if (Email != null)
-            {
-                var member = MemberHelper.GetMemberByEmail(Email);
-                EmailResult = MemberHelper.FormatExpirationDate(member);
+                string filter = string.Empty;
+                if (Ushpa != null)
+                {
+                    filter = $"USHPA eq '{Ushpa}'";
+                }
+                if (Email != null)
+                {
+                    if (filter.Length > 0)
+                    {
+                        filter += " or "; 
+                    }
+                    filter += $"Email eq '{Email.ToLower()}' or SecondaryEmail eq '{Email.ToLower()}'";
+                }
+                var member = MemberHelper.GetMembersByFilter(filter).FirstOrDefault();
+                var validationResult = MemberHelper.ValidateMember(member);
+                Result = validationResult.message;
+                IsActive = validationResult.isActive;
             }
         }
     }

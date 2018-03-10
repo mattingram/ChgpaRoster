@@ -34,9 +34,9 @@ namespace Roster.Models
 		public bool PGObserver { get; set; }
 		public bool HGInstructor { get; set; }
 		public bool PGInstructor { get; set; }
-		[DisplayFormat(DataFormatString = "{0:d}")]	public DateTime JoinDate { get; set; }
-		[DisplayFormat(DataFormatString = "{0:d}")]	public DateTime? ExpirationDate { get; set; }
-		[DisplayFormat(DataFormatString = "{0:d}")]	public DateTime DateLastPaid { get; set; }
+		[DisplayFormat(DataFormatString = "{0:d}")] public DateTime JoinDate { get; set; }
+		[DisplayFormat(DataFormatString = "{0:d}")] public DateTime? ExpirationDate { get; set; }
+		[DisplayFormat(DataFormatString = "{0:d}")] public DateTime? DateLastPaid { get; set; }
 		public string PaymentMethod { get; set; }
 		public bool VisitingPilot { get; set; }
 		public bool GoogleGroupMember { get; set; }
@@ -47,7 +47,7 @@ namespace Roster.Models
 		public string EmergencyContactName { get; set; }
 		public string EmergencyContactPhone { get; set; }
 		public string Notes { get; set; }
-		[DisplayFormat(DataFormatString = "{0:d}")]	public DateTime Updated { get; set; }
+		[DisplayFormat(DataFormatString = "{0:d}")] public DateTime Updated { get; set; }
 		public bool DoNotSharePII { get; set; }
 	}
 }

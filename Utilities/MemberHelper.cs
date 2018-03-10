@@ -64,22 +64,23 @@ namespace Roster.Utilities
 			}
             return results.Result.ToList();
         }
+
         
-        public static string FormatExpirationDate(Member member)
+        public static (string message, bool isActive) ValidateMember(Member member)
         {
             if (member == null)
             {
-                return "Not found.";
+                return ("Not found", false);
             }
-            if (member.ExpirationDate == DateTime.MinValue)
+            if (member.DateLastPaid == DateTime.MinValue || member.DateLastPaid == null)
             {
-                return "Active Member (No Expiration)";
+                return ("Inactive (Unknown date of last payment)", false);
             }
-            if (member.ExpirationDate < DateTime.Now)
+            if (member.DateLastPaid < DateTime.Now.AddYears(-1))
             {
-                return "Expired: " + member.ExpirationDate?.ToShortDateString();
+                return ($"Inactive (Expired on {member.DateLastPaid?.AddYears(1).ToShortDateString()})", false);
             }
-            return $"Active Member ({member?.ExpirationDate?.ToShortDateString()})";
+            return ($"Active (Renewal date {member?.DateLastPaid?.AddYears(1).ToShortDateString()})", true);
         }
     }
 }
