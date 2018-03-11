@@ -25,16 +25,25 @@
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.Members[0].LastName)
+                        @Html.DisplayNameFor(model => model.Members[0].FirstName)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Members[0].FirstName)
+                        @Html.DisplayNameFor(model => model.Members[0].LastName)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Members[0].DateLastPaid)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Members[0].ExpirationDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Members[0].WebsiteJoinDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Members[0].MembershipType)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Members[0].VisitingPilot)
                     </th>
                     <th></th>
                 </tr>
@@ -43,10 +52,10 @@
             @foreach (var item in Model.Members) {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.LastName)
+                        @Html.DisplayFor(modelItem => item.FirstName)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.FirstName)
+                        @Html.DisplayFor(modelItem => item.LastName)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.DateLastPaid)
@@ -55,9 +64,17 @@
                         @Html.DisplayFor(modelItem => item.ExpirationDate)
                     </td>
                     <td>
+                        @Html.DisplayFor(modelItem => item.WebsiteJoinDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MembershipType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.VisitingPilot)
+                    </td>
+                    <td>
                         <a asp-page="./Edit" asp-route-id="@item.RowKey">Edit</a> |
-                        <a asp-page="./Details" asp-route-id="@item.RowKey">Details</a> |
-                        <a asp-page="./Delete" asp-route-id="@item.RowKey">Delete</a>
+                        <a asp-page="./Details" asp-route-id="@item.RowKey">Details</a>
                     </td>
                 </tr>
             }

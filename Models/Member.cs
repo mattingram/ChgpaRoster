@@ -34,20 +34,37 @@ namespace Roster.Models
 		public bool PGObserver { get; set; }
 		public bool HGInstructor { get; set; }
 		public bool PGInstructor { get; set; }
-		[DisplayFormat(DataFormatString = "{0:d}")] public DateTime JoinDate { get; set; }
-		[DisplayFormat(DataFormatString = "{0:d}")] public DateTime? ExpirationDate { get; set; }
-		[DisplayFormat(DataFormatString = "{0:d}")] public DateTime? DateLastPaid { get; set; }
+		[Display(Name="Member Type")] public string MembershipType { get; set; }
+		
+		[DisplayFormat(DataFormatString = "{0:d}")]
+		[Display(Name="Joined")]
+		public DateTime WebsiteJoinDate { get; set; }
+
+		[DisplayFormat(DataFormatString = "{0:d}")]
+		[Display(Name="Expiration")]
+		public DateTime? ExpirationDate { get; set; }
+
+		[DisplayFormat(DataFormatString = "{0:d}")]
+		[Display(Name="Last Paid")]
+		public DateTime? DateLastPaid { get; set; }
 		public string PaymentMethod { get; set; }
-		public bool VisitingPilot { get; set; }
+		public decimal PaymentAmount { get; set; }
+		public string PaymentStatus { get; set; }
+		[Display(Name="Visiting")] public bool VisitingPilot { get; set; }
 		public bool GoogleGroupMember { get; set; }
-		public bool IgnoreGoogleGroup { get; set; }
+		public bool IgnoreWebsite { get; set; }
+		public bool IgnoreGroupInvite { get; set; }
 		public string WebsiteUsername { get; set; }
 		public string ForumUsername { get; set; }
 		public string HAMSign { get; set; }
 		public string EmergencyContactName { get; set; }
 		public string EmergencyContactPhone { get; set; }
+		public bool Grandfathered { get; set; }
 		public string Notes { get; set; }
 		[DisplayFormat(DataFormatString = "{0:d}")] public DateTime Updated { get; set; }
 		public bool DoNotSharePII { get; set; }
+		public string DataSource { get; set; }
+		public string TransactionId { get; set; }
+		public int EntryId { get; set; }
 	}
 }

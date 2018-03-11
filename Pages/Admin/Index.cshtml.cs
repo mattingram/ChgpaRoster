@@ -23,15 +23,27 @@ namespace Roster.Pages.Admin
         [BindProperty]
         public string Message {get; set;}
 
+        public void OnGet()
+        {
+            Members = MemberHelper.GetAll().ToList();
+        }
+
         public void OnPost()
         {
-            if (LastName == null || Email == null)
+            string filter = string.Empty;
+            if (LastName != null)
             {
-                return;
+                filter = $"LastName eq '{LastName}'";
             }
-            Member member = MemberHelper.GetMember(LastName, Email);
-            Members = new List<Member>();
-            Members.Add(member);
+            if (Email != null)
+            {
+                if (filter.Length > 0)
+                {
+                    filter += " or "; 
+                }
+                filter += $"Email eq '{Email.ToLower()}' or SecondaryEmail eq '{Email.ToLower()}'";
+            }
+            Members = MemberHelper.GetMembersByFilter(filter);
         }
     }
 }

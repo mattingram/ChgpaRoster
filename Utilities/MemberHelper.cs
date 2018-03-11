@@ -31,6 +31,11 @@ namespace Roster.Utilities
             return members.Any() ? members.First() : null;
         }
 
+        internal static IEnumerable<Member> GetAll()
+        {
+            return GetMembersByFilter("");
+        }
+
         public static Member GetMember(string lastName, string email)
         {
             TableOperation retrieveOperation = TableOperation.Retrieve<Member>(lastName, email);
@@ -52,7 +57,7 @@ namespace Roster.Utilities
 			return new JsonResult(results);
         }
 
-        public static IEnumerable<Member> GetMembersByFilter(string filter)
+        public static List<Member> GetMembersByFilter(string filter)
         {
 			var query = new TableQuery<Member>().Where(filter);
 
@@ -65,7 +70,6 @@ namespace Roster.Utilities
             return results.Result.ToList();
         }
 
-        
         public static (string message, bool isActive) ValidateMember(Member member)
         {
             if (member == null)
