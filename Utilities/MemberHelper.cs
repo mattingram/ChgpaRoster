@@ -11,7 +11,7 @@ namespace Roster.Utilities
     public static class MemberHelper
     {
         private static CloudTable _table;
-        public static CloudTable table => _table ?? Init();
+        private static CloudTable table => _table ?? Init();
 
         public static CloudTable Init()
         {
@@ -31,7 +31,7 @@ namespace Roster.Utilities
             return members.Any() ? members.First() : null;
         }
 
-        internal static IEnumerable<Member> GetAll()
+        public static IEnumerable<Member> GetAll()
         {
             return GetMembersByFilter("");
         }

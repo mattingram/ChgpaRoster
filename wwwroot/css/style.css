@@ -85,3 +85,7 @@ body {
 .roster-header a:hover {
   opacity: .5;
 }
+
+.hidden {
+  display: none;
+}

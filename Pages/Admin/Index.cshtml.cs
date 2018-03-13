@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Roster.Models;
 using Roster.Utilities;
+using System;
 
 namespace Roster.Pages.Admin
 {
@@ -25,25 +26,27 @@ namespace Roster.Pages.Admin
 
         public void OnGet()
         {
+            Console.WriteLine("GetAll");
             Members = MemberHelper.GetAll().ToList();
+            Console.WriteLine("DoneGetAll");
         }
 
-        public void OnPost()
-        {
-            string filter = string.Empty;
-            if (LastName != null)
-            {
-                filter = $"LastName eq '{LastName}'";
-            }
-            if (Email != null)
-            {
-                if (filter.Length > 0)
-                {
-                    filter += " or "; 
-                }
-                filter += $"Email eq '{Email.ToLower()}' or SecondaryEmail eq '{Email.ToLower()}'";
-            }
-            Members = MemberHelper.GetMembersByFilter(filter);
-        }
+        // public void OnPost()
+        // {
+        //     string filter = string.Empty;
+        //     if (LastName != null)
+        //     {
+        //         filter = $"LastName eq '{LastName}'";
+        //     }
+        //     if (Email != null)
+        //     {
+        //         if (filter.Length > 0)
+        //         {
+        //             filter += " or "; 
+        //         }
+        //         filter += $"Email eq '{Email.ToLower()}' or SecondaryEmail eq '{Email.ToLower()}'";
+        //     }
+        //     Members = MemberHelper.GetMembersByFilter(filter);
+        // }
     }
 }
