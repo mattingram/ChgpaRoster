@@ -1,0 +1,30 @@
+@page
+@model Admin.RegistrationsModel
+@{
+    ViewData["Title"] = "Registrations";
+}
+<div class="layout">
+    <h2>@ViewData["Title"]</h2>
+    @if (Model.Registrations.Count > 0) {
+    <div class="table-wrapper">
+        <table class="roster">
+            <thead>
+                <tr>
+                    <th>
+                        @* @Html.DisplayNameFor(model => model.Members[0].FirstName) *@
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model.Registrations) {
+                <tr>
+                    <td>
+                        @* @Html.DisplayFor(modelItem => item.FirstName) *@
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+    }
+</div>

@@ -33,6 +33,10 @@ namespace Roster.Pages.Admin
 
         public LoginModel(IConfiguration config)
         {
+            if (config["AdminUsers"] == null || config["AdminKeys"] == null)
+            {
+                throw new Exception("Missing config AdminUsers or AdminKeys.");
+            }
             AdminUsers = config["AdminUsers"].Split(";").ToList();
             AdminKeys = config["AdminKeys"].Split(";").ToList();
         }

@@ -3,13 +3,14 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"]</title>
+    <title>CHGPA @ViewData["Title"]</title>
     <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>    
    <a asp-page="/Index">Home</a> - <a asp-page="/Admin/Index">Admin</a>
    @if (User.Identity.IsAuthenticated)
    {
+        <span> - </span><a href="/Admin/Registrations">Registrations</a>
         <span> - </span><a href="/Admin/Logout">Logout</a>
    }
    <br/>
