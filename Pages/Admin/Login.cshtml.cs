@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Configuration;
+using Roster.Utilities;
 
 namespace Roster.Pages.Admin
 {
@@ -28,17 +29,11 @@ namespace Roster.Pages.Admin
         [BindProperty]
         public string Message { get; set; }
 
-        private readonly List<string> AdminUsers;
-        private readonly List<string> AdminKeys;
+        private readonly AuthenticationHelper _authHelper;
 
-        public LoginModel(IConfiguration config)
+        public LoginModel(AuthenticationHelper authHelper)
         {
-            if (config["AdminUsers"] == null || config["AdminKeys"] == null)
-            {
-                throw new Exception("Missing config AdminUsers or AdminKeys.");
-            }
-            AdminUsers = config["AdminUsers"].Split(";").ToList();
-            AdminKeys = config["AdminKeys"].Split(";").ToList();
+            _authHelper = authHelper;
         }
 
         public ActionResult OnGet()
@@ -53,7 +48,7 @@ namespace Roster.Pages.Admin
                 return Page();
             }
 
-            var user = AuthenticateUser(Email, Password);
+            var user = _authHelper.AuthenticateUser(Email, Password);
 
             if (user == null)
             {
@@ -100,21 +95,6 @@ namespace Roster.Pages.Admin
                 authProperties);
             
             return RedirectToPage("./Index");
-        }
-
-        private IdentityUser AuthenticateUser(string email, string password)
-        {
-            if (AdminUsers.Contains(email) && AdminKeys.Contains(password))
-            {
-                return new IdentityUser()
-                {
-                    Email = email
-                };
-            }
-            else
-            {
-                return null;
-            }
         }
     }
 }

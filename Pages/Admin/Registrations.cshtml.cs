@@ -16,17 +16,18 @@ namespace Roster.Pages.Admin
     {
         public List<Registration> Registrations = new List<Registration>();
 
-        private IConfiguration _config;
+        public string url;
 
-        public RegistrationsModel(IConfiguration config)
+        private GravityFormsApi _api;
+
+        public RegistrationsModel(GravityFormsApi api)
         {
-            _config = config;
+            _api = api;
         }
         
         public void OnGet()
         {
-            //GravityFormsApi api = new GravityFormsApi(_config);
-            //Console.WriteLine(api.GetLatestEntries());
+            url = _api.GetLatestEntries();
         }
     }
 }

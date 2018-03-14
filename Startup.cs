@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
+using Roster.Utilities;
 
 namespace ChgpaRoster
 {
@@ -27,6 +28,8 @@ namespace ChgpaRoster
             });
             
             services.AddSingleton<IConfiguration>(Configuration);
+            services.AddSingleton<AuthenticationHelper>(new AuthenticationHelper(Configuration));
+            services.AddSingleton<GravityFormsApi>(new GravityFormsApi(Configuration));
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>

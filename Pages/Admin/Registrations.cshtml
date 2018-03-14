@@ -5,6 +5,9 @@
 }
 <div class="layout">
     <h2>@ViewData["Title"]</h2>
+    <a href="@Model.url" target="blank">GetLatestRegistrations</a>
+    <br/>
+    @Model.url
     @if (Model.Registrations.Count > 0) {
     <div class="table-wrapper">
         <table class="roster">
