@@ -26,9 +26,7 @@ namespace Roster.Pages.Admin
 
         public void OnGet()
         {
-            Console.WriteLine("GetAll");
             Members = MemberHelper.GetAll().ToList();
-            Console.WriteLine("DoneGetAll");
         }
 
         // public void OnPost()
