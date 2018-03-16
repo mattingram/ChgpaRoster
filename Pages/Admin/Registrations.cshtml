@@ -5,16 +5,28 @@
 }
 <div class="layout">
     <h2>@ViewData["Title"]</h2>
-    <a href="@Model.url" target="blank">GetLatestRegistrations</a>
-    <br/>
-    @Model.url
-    @if (Model.Registrations.Count > 0) {
+    @if (Model.Registrations.Length > 0) {
     <div class="table-wrapper">
         <table class="roster">
             <thead>
                 <tr>
                     <th>
-                        @* @Html.DisplayNameFor(model => model.Members[0].FirstName) *@
+                        @Html.DisplayNameFor(model => model.Registrations[0].Id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Registrations[0].FirstName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Registrations[0].LastName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Registrations[0].PaymentStatus)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Registrations[0].PaymentMethod)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Registrations[0].PaymentAmount)
                     </th>
                 </tr>
             </thead>
@@ -22,7 +34,22 @@
             @foreach (var item in Model.Registrations) {
                 <tr>
                     <td>
-                        @* @Html.DisplayFor(modelItem => item.FirstName) *@
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PaymentStatus)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PaymentMethod)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PaymentAmount)
                     </td>
                 </tr>
             }

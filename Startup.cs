@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
 using Roster.Utilities;
+using System.Net.Http;
+using System.Net;
 
 namespace ChgpaRoster
 {
@@ -30,6 +32,9 @@ namespace ChgpaRoster
             services.AddSingleton<IConfiguration>(Configuration);
             services.AddSingleton<AuthenticationHelper>(new AuthenticationHelper(Configuration));
             services.AddSingleton<GravityFormsApi>(new GravityFormsApi(Configuration));
+            services.AddSingleton<HttpClient>(new HttpClient());
+            var sp = ServicePointManager.FindServicePoint(new Uri("https://chgpa.org/"));
+            sp.ConnectionLeaseTimeout = 60*1000; // 1 minute
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
