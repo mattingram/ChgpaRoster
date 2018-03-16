@@ -1,8 +1,13 @@
 using System;
-using System.Web;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Runtime.Serialization.Json;
 using System.Security.Cryptography;
 using System.Text;
+using System.Web;
 using Microsoft.Extensions.Configuration;
+using Roster.Models;
 
 namespace Roster.Utilities
 {
@@ -11,8 +16,9 @@ namespace Roster.Utilities
         private string _baseUrl;
         private string _publicKey;
         private string _privateKey;
+        private HttpClient _client;
 
-        public GravityFormsApi(IConfiguration config)
+        public GravityFormsApi(IConfiguration config, HttpClient client)
         {
             _baseUrl = config["GravityFormsUrl"];
             _publicKey = config["GravityFormsPublicKey"];
@@ -21,19 +27,39 @@ namespace Roster.Utilities
             {
                 throw new Exception("GravityForms config missing.");
             }
+            _client = client;
+        }
+
+        public List<Registration> GetNewPaidRegistrations()
+        {
+            //Get most recent Registration.DateCreated
+            //GetRegistrationsSince()
+            return null;
+        }
+
+        public List<Registration> GetRegistrationsSince(string date)
+        {
+            string url = GetUrlForEntriesSince(date);
+            
+            var streamTask = _client.GetStreamAsync(url);
+            streamTask.Wait();
+            var serializer = new DataContractJsonSerializer(typeof(GravityFormRegistration));
+            var gfRegistration = serializer.ReadObject(streamTask.Result) as GravityFormRegistration;
+            return gfRegistration?.Response?.Registrations.Where(r => r.Active).ToList();
         }
         
-        public string GetEntriesSince(string date)
+        public string GetUrlForEntriesSince(string date, int numberOfEntries = 100)
         {
             string method = "GET";
             string route = "forms/1/entries";
             string queryString = "search[start_date]=" + date;
+            queryString += $"&paging[page_size]={numberOfEntries}";
             string expires = Security.UtcTimestamp(new TimeSpan(0,10,0)).ToString();
             string url = GenerateUrl(_baseUrl, route, method, queryString, _publicKey, _privateKey, expires);
             return url;
         }
 
-        public string GetLatestEntries(int numberOfEntries = 10)
+        public string GetUrlForLatestEntries(int numberOfEntries = 10)
         {
             string method = "GET";
             string route = "forms/1/entries";

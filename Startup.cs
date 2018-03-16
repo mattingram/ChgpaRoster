@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
 using Roster.Utilities;
+using System.Net.Http;
+using System.Net;
 
 namespace ChgpaRoster
 {
@@ -17,6 +19,7 @@ namespace ChgpaRoster
         }
 
         public IConfiguration Configuration { get; }
+        public HttpClient client = new HttpClient();
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -29,7 +32,10 @@ namespace ChgpaRoster
             
             services.AddSingleton<IConfiguration>(Configuration);
             services.AddSingleton<AuthenticationHelper>(new AuthenticationHelper(Configuration));
-            services.AddSingleton<GravityFormsApi>(new GravityFormsApi(Configuration));
+            services.AddSingleton(client);
+            services.AddSingleton<GravityFormsApi>(new GravityFormsApi(Configuration, client));
+            var sp = ServicePointManager.FindServicePoint(new Uri("https://chgpa.org/"));
+            sp.ConnectionLeaseTimeout = 60*1000; // 1 minute
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
