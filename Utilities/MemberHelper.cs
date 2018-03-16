@@ -70,7 +70,7 @@ namespace Roster.Utilities
             return results.Result.ToList();
         }
 
-        public static (string message, bool isActive) ValidateMember(Member member)
+        public static (string message, bool isActive) ValidateMembership(Member member)
         {
             if (member == null)
             {
@@ -85,6 +85,17 @@ namespace Roster.Utilities
                 return ($"Inactive (Expired on {member.DateLastPaid?.AddYears(1).ToShortDateString()})", false);
             }
             return ($"Active (Renewal date {member?.DateLastPaid?.AddYears(1).ToShortDateString()})", true);
+        }
+
+        public static void ImportNewRegistrations()
+        {
+            
+            //Get latests members from Gravity Forms API
+            //Foreach registration
+            var result = CloudTableHelper.InsertOrMergeEntityAsync(_table, null);
+            result.Wait();
+            //Member newMember = result.Result as Member;
+            //string log = $"{newMember.FirstName} {newMember.LastName} inserted successfully!";
         }
     }
 }

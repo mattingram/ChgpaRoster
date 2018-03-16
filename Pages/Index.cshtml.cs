@@ -43,7 +43,7 @@ namespace Roster.Pages
                     filter += $"Email eq '{Email.ToLower()}' or SecondaryEmail eq '{Email.ToLower()}'";
                 }
                 var member = MemberHelper.GetMembersByFilter(filter).FirstOrDefault();
-                var validationResult = MemberHelper.ValidateMember(member);
+                var validationResult = MemberHelper.ValidateMembership(member);
                 Result = validationResult.message;
                 IsActive = validationResult.isActive;
             }
