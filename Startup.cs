@@ -32,8 +32,8 @@ namespace ChgpaRoster
             
             services.AddSingleton<IConfiguration>(Configuration);
             services.AddSingleton<AuthenticationHelper>(new AuthenticationHelper(Configuration));
-            services.AddSingleton<GravityFormsApi>(new GravityFormsApi(Configuration));
-            services.AddSingleton<HttpClient>(new HttpClient());
+            services.AddSingleton(client);
+            services.AddSingleton<GravityFormsApi>(new GravityFormsApi(Configuration, client));
             var sp = ServicePointManager.FindServicePoint(new Uri("https://chgpa.org/"));
             sp.ConnectionLeaseTimeout = 60*1000; // 1 minute
 

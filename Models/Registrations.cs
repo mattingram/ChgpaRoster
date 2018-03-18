@@ -13,15 +13,17 @@ namespace Roster.Models
 		[DataMember(Name="10")] public string UserName { get; set; }
 		[DataMember(Name="11")] public string Email { get; set; }
 		[DataMember(Name="13")] public string Phone { get; set; }
-		[DataMember(Name="25")] public int Ushpa { get; set; }
+		[DataMember(Name="25")] public string Ushpa { get; set; }
 		[DataMember(Name="26")] public string Rating { get; set; }
 		[DataMember(Name="29")] public string EmergencyContactName { get; set; }
 		[DataMember(Name="28")] public string EmergencyContactPhone { get; set; }
-		[DataMember(Name="data_created")] public DateTime DateCreated { get; set; }
+		[DataMember(Name="date_created")] public string DateCreatedString { get; set; }
+		public DateTime DateCreated => DateTime.Parse(DateCreatedString);
 		[DataMember(Name="payment_status")] public string PaymentStatus { get; set; }
 		[DataMember(Name="payment_amount")] public decimal? PaymentAmount { get; set; }
 		[DataMember(Name="18")] public string PaymentMethod { get; set; }
 		[DataMember(Name="status")] public string Status { get; set; }
+		public bool Active => Status == "active";
 	}
 
 	[DataContract]
