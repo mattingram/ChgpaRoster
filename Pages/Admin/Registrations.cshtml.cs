@@ -18,15 +18,17 @@ namespace Roster.Pages.Admin
     [Authorize]
     public class RegistrationsModel : PageModel
     {
-        public List<Registration> Registrations;// = new Registration[] {};
+        public List<Registration> Registrations;
         private GravityFormsApi _api;
+        private HttpClient _client;
 
-        public RegistrationsModel(GravityFormsApi api)
+        public RegistrationsModel(GravityFormsApi api, HttpClient client)
         {
             _api = api;
+            _client = client;
         }
         
-        public void OnGet()
+        public void OnGetAsync()
         {
             Registrations = _api.GetRegistrationsSince("2018-02-01");
         }
